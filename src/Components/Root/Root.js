@@ -15,6 +15,11 @@ const sessionOption = {
 };
 
 class Root extends React.Component {
+  constructor(props) {
+    super(props);
+    this.time = React.createRef();
+  }
+
   state = {
     timerRunning: false,
     cycle: "",
@@ -28,18 +33,17 @@ class Root extends React.Component {
       currentTime: time,
       cycle: name
     });
-
-    // this.handleStartTimer();
+    clearInterval(this.time.current);
+    this.handleStartTimer();
   };
 
   handleStartTimer = () => {
-    const time = setInterval(() => {
+    this.time.current = setInterval(() => {
       this.setState({
-        timerId: time
+        timerId: this.time.current
       });
       if (this.state.currentTime === 0) {
-        // handleEndSession();
-        clearInterval(this.state.timerId);
+        clearInterval(this.time.current);
       } else {
         this.setState(state => ({
           currentTime: state.currentTime - 1
