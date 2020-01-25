@@ -1,7 +1,7 @@
 import React from "react";
 import "./Root.css";
 import Timer from "../Timer/Timer.js";
-import ButtonsWrapper from "../ButtonsWrapper/ButtonWrapper";
+import Button from "../Button/Button";
 
 const sessionOption = {
   activity: {
@@ -15,6 +15,11 @@ const sessionOption = {
 };
 
 class Root extends React.Component {
+  constructor(props) {
+    super(props);
+    this.time = React.createRef();
+  }
+
   state = {
     timerRunning: false,
     cycle: "",
@@ -28,18 +33,17 @@ class Root extends React.Component {
       currentTime: time,
       cycle: name
     });
-
-    // this.handleStartTimer();
+    clearInterval(this.time.current);
+    this.handleStartTimer();
   };
 
   handleStartTimer = () => {
-    const time = setInterval(() => {
+    this.time.current = setInterval(() => {
       this.setState({
-        timerId: time
+        timerId: this.time.current
       });
       if (this.state.currentTime === 0) {
-        // handleEndSession();
-        clearInterval(this.state.timerId);
+        clearInterval(this.time.current);
       } else {
         this.setState(state => ({
           currentTime: state.currentTime - 1
@@ -48,16 +52,31 @@ class Root extends React.Component {
     }, 1000);
   };
 
+  handlePauseTimer = timerId => {
+    clearInterval(timerId);
+  };
+
   render() {
     const { currentTime } = this.state;
 
     return (
       <React.Fragment>
         <Timer currentTime={currentTime} />
-        <ButtonsWrapper
-          sessionOption={sessionOption}
-          handleStartSession={this.handleStartSession}
-        />
+        <Button
+          time={sessionOption.brake.time}
+          name={sessionOption.brake.name}
+          handleFn={this.handleStartSession}
+        >
+          Brake
+        </Button>
+        <Button
+          time={sessionOption.activity.time}
+          name={sessionOption.activity.name}
+          handleFn={sessionOption.activity.name}
+        >
+          Work
+        </Button>
+        <Button timerId={this.time.current}>Pause</Button>
       </React.Fragment>
     );
   }
