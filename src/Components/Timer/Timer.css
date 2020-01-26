@@ -1,0 +1,20 @@
+.timerWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 50%;
+  height: 230px;
+  width: 230px;
+  font-size: 30px;
+  border: solid 4px #36aabf;
+}
+
+.timer {
+  margin: 5px 0;
+}
+
+.timerIcon {
+  height: 25px;
+  width: 25px;
+}

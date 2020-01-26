@@ -1,0 +1,36 @@
+/* .buttonWrapper {
+  padding-top: 20px;
+} */
+.icon {
+  height: 35px;
+  width: 35px;
+}
+.iconPlus {
+  height: 30px;
+  width: 30px;
+}
+
+.button {
+  padding: 0 8px;
+  background: none;
+  border: none;
+  transition: 0.2s;
+}
+.buttonPlus {
+  background: none;
+  border: none;
+  position: absolute;
+  left: 500px;
+  top: 30px;
+  transition: 0.2s;
+}
+
+button:focus,
+.buttonPlus:focus {
+  outline: none;
+}
+
+.button:active,
+.buttonPlus:active {
+  opacity: 0.2;
+}
